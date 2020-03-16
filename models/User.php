@@ -13,6 +13,7 @@ use Yii;
  * @property string|null $patronymic
  * @property string|null $password
  * @property string $email
+ * @property string $access_token
  * @property int|null $status
  * @property int|null $role
  * @property int|null $university_id
@@ -37,9 +38,9 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['email'], 'required'],
+            [['email', 'access_token'], 'required'],
             [['status', 'role', 'university_id'], 'integer'],
-            [['first_name', 'last_name', 'patronymic', 'password', 'email'], 'string', 'max' => 256],
+            [['first_name', 'last_name', 'patronymic', 'password', 'email', 'access_token'], 'string', 'max' => 256],
             [['university_id'], 'exist', 'skipOnError' => true, 'targetClass' => University::className(), 'targetAttribute' => ['university_id' => 'id']],
         ];
     }
@@ -56,6 +57,7 @@ class User extends \yii\db\ActiveRecord
             'patronymic' => 'Patronymic',
             'password' => 'Password',
             'email' => 'Email',
+            'access_token' => 'Access Token',
             'status' => 'Status',
             'role' => 'Role',
             'university_id' => 'University ID',

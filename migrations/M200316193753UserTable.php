@@ -38,6 +38,7 @@ class M200316193753UserTable extends Migration
             'patronymic' => 'VARCHAR(256)',
             'password' => 'VARCHAR(256)',
             'email' => 'VARCHAR(256) NOT NULL',
+            'access_token' => 'VARCHAR(256) NOT NULL',
             'status' => 'BOOLEAN DEFAULT 0',
             'role' => 'BOOLEAN DEFAULT 0',
             'university_id' => 'INTEGER'
