@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $name
+ * @property string $email
  * @property int|null $verified
  *
  * @property User[] $users
@@ -29,9 +30,9 @@ class University extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name', 'email'], 'required'],
             [['verified'], 'integer'],
-            [['name'], 'string', 'max' => 256],
+            [['name', 'email'], 'string', 'max' => 256],
         ];
     }
 
@@ -43,6 +44,7 @@ class University extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'email' => 'Email',
             'verified' => 'Verified',
         ];
     }

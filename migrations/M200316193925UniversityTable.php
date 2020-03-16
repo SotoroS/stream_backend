@@ -32,6 +32,7 @@ class M200316193925UniversityTable extends Migration
         $this->createTable('university', [
             'id' => $this->primaryKey(),
             'name' => 'VARCHAR(256) NOT NULL',
+            'email' => 'VARCHAR(256) NOT NULL',
             'verified' => 'BOOLEAN DEFAULT 0'
         ]);
     }
