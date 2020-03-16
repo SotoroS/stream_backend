@@ -10,6 +10,8 @@ use Yii;
  * @property int $id
  * @property string $name
  * @property string $email
+ * @property string $password
+ * @property string $access_token
  * @property int|null $verified
  *
  * @property User[] $users
@@ -30,9 +32,9 @@ class University extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'email'], 'required'],
+            [['name', 'email', 'password', 'access_token'], 'required'],
             [['verified'], 'integer'],
-            [['name', 'email'], 'string', 'max' => 256],
+            [['name', 'email', 'password', 'access_token'], 'string', 'max' => 256],
         ];
     }
 
@@ -45,6 +47,8 @@ class University extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'email' => 'Email',
+            'password' => 'Password',
+            'access_token' => 'Access Token',
             'verified' => 'Verified',
         ];
     }

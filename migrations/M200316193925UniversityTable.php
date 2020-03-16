@@ -33,6 +33,8 @@ class M200316193925UniversityTable extends Migration
             'id' => $this->primaryKey(),
             'name' => 'VARCHAR(256) NOT NULL',
             'email' => 'VARCHAR(256) NOT NULL',
+            'password' => 'VARCHAR(256) NOT NULL',
+            'access_token' => 'VARCHAR(256) NOT NULL',
             'verified' => 'BOOLEAN DEFAULT 0'
         ]);
     }
