@@ -3,6 +3,8 @@
 namespace micro\models;
 
 use Yii;
+use yii\db\ActiveRecord;
+use yii\web\IdentityInterface;
 
 /**
  * This is the model class for table "university".
@@ -16,7 +18,7 @@ use Yii;
  *
  * @property User[] $users
  */
-class University extends \yii\db\ActiveRecord
+class User extends ActiveRecord implements IdentityInterface
 {
     /**
      * {@inheritdoc}
@@ -62,4 +64,49 @@ class University extends \yii\db\ActiveRecord
     {
         return $this->hasMany(User::className(), ['university_id' => 'id']);
     }
+
+    /**
+     * Find user by access token
+     * 
+     * @param $token - access token's user
+     * @param $type
+     * 
+     * @return User user with token user
+     */
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        return static::findOne(['access_token' => $token]);
+    }
+    
+	/**
+	 * {@inheritdoc}
+	 */
+	public static function findIdentity($id)
+	{
+		return static::findOne(['id' => $id]);
+    }
+    
+    /**
+	 * {@inheritdoc}
+	 */
+	public function getId()
+	{
+		return $this->getPrimaryKey();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getAuthKey()
+	{
+		return $this->auth_key;
+    }
+    
+    /**
+	 * {@inheritdoc}
+	 */
+	public function validateAuthKey($authKey)
+	{
+		return $this->getAuthKey() === $authKey;
+	}
 }
