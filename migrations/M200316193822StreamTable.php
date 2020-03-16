@@ -5,9 +5,9 @@ namespace micro\migrations;
 use yii\db\Migration;
 
 /**
- * Class M200229111920CreateRequestTypeTable
+ * Class M200316193822StreamTable
  */
-class M200229111920CreateRequestTypeTable extends Migration
+class M200316193822StreamTable extends Migration
 {
     /**
      * {@inheritdoc}
@@ -22,22 +22,23 @@ class M200229111920CreateRequestTypeTable extends Migration
      */
     public function safeDown()
     {
-        echo "M200229111920CreateRequestTypeTable cannot be reverted.\n";
+        echo "M200316193822StreamTable cannot be reverted.\n";
 
         return false;
     }
 
-    // Use up()/down() to run migration code without a transaction.
     public function up()
     {
-        $this->createTable('request_type', [
+        $this->createTable('stream', [
             'id' => $this->primaryKey(),
+            'user_id' => 'INTEGER NOT NULL',
             'name' => 'VARCHAR(256) NOT NULL',
+            'date' => 'DATETIME NOT NULL'
         ]);
     }
 
     public function down()
     {
-        $this->dropTable('request_type');
+        $this->dropTable('stream');
     }
 }
