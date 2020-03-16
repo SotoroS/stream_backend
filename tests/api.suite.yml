@@ -1,0 +1,13 @@
+# actor: ApiTester
+# modules:
+#     enabled:
+#         - \Helper\Api
+actor: ApiTester
+modules:
+    enabled:
+        - REST:
+            url: https://rest.fokin-team.ru/
+            depends: PhpBrowser
+            part: Json
+        - Yii2:
+            configFile: 'config.php'

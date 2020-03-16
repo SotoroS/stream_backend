@@ -1,0 +1,25 @@
+{
+    "require": {
+        "yiisoft/yii2": "~2.0.0",
+        "facebook/graph-sdk": "^5.7",
+        "google/apiclient": "^2.0",
+        "codeception/module-phpbrowser": "^1.0.0",
+        "codeception/module-asserts": "^1.0.0",
+        "yii2tech/illuminate": "*",
+        "yiisoft/yii2-swiftmailer": "^2.1"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
+    "require-dev": {
+        "yiisoft/yii2-gii": "^2.1",
+        "codeception/module-yii2": "^1.1",
+        "codeception/module-asserts": "^1.1",
+        "yiisoft/yii2-codeception": "^2.0",
+        "codeception/module-db": "^1.0",
+        "codeception/module-rest": "^1.2"
+    }
+}
