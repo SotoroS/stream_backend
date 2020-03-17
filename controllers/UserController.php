@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace micro\controllers;
 
 use Yii;
+use \DateTime;
 
 use yii\base\Exception;
 
@@ -15,8 +16,14 @@ use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
 use micro\models\User;
-use micro\models\Stream;
-use DateTime;
+use micro\models\Message;
+use micro\models\CityArea;
+use micro\models\RentType;
+use micro\models\PropertyType;
+
+use Facebook;
+use Google_Client;
+use Google_Service_Oauth2;
 
 //use RingCentral\Psr7\Stream;
  
@@ -103,5 +110,44 @@ class UserController extends Controller
                 return ["error" => $stream->error];
             }
         }
+    }
+
+    public function actionSendMsg()
+    {
+        $request = Yii::$app->request->post();
+
+        $text = $request['text'];
+
+        // TO DO adding files
+        $file = '';
+        $stream_id = Yii::$app->request->get('stream_id');
+
+        if (!$text && !$file) {
+            throw new Exception('Not text or message file specified');
+        }
+
+        $user = User::findOne(Yii::$app->user->identity->id);
+
+        if ($user->status == 0) {
+            throw new Exception('Not enough rights');
+        }
+
+        $message = new Message();
+
+        if ($text) {
+            $message->text = $text;
+        }
+
+        if ($file && $user->role == 1) {
+            $message->file = $file;
+        }
+        $message->user_id = $user->id;
+        $message->date = new DateTime('now');
+        $message->stream_id = $stream_id;
+
+        if (!$message->save()) {
+            throw new Exception('Cannot save message');
+        }
+
     }
 }
