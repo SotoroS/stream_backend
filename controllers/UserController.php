@@ -15,15 +15,11 @@ use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
 use micro\models\User;
-use micro\models\City;
-use micro\models\CityArea;
-use micro\models\RentType;
-use micro\models\PropertyType;
+use micro\models\Stream;
+use DateTime;
 
-use Facebook;
-use Google_Client;
-use Google_Service_Oauth2;
-
+//use RingCentral\Psr7\Stream;
+ 
 /**
  * Class UserController
  * @package micro\controllers
@@ -78,11 +74,34 @@ class UserController extends Controller
         return $behaviors;
     }
 
-    public function actionSendMsg()
+    // public function actionSendMsg()
+    // {
+    //     $request = Yii::$app->request;
+
+    //     $text = $request->post('text');
+    //     $file = 
+    // }
+
+    public function actionCreateStream()
     {
         $request = Yii::$app->request;
+        $user_id = Yii::$app->user->identity->id;
+        $user = User::findOne($user_id);
 
-        $text = $request->post('text');
-        $file = 
+        if ($user->role == 1) {
+            $stream = new Stream();
+            $current = new DateTime(date("d.m.Y H:i:s"));
+            $current = $current->format('Y-m-d H:i:s');
+
+            $stream->name = $request->post('name');
+            $stream->date = $current;
+            $stream->user_id = $user_id;
+
+            if ($stream->save()) {
+                return 'fokin-team.ru/link-to-stream'.uniqid();
+            } else {
+                return ["error" => $stream->error];
+            }
+        }
     }
 }
